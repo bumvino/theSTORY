@@ -123,7 +123,7 @@ export default function ClientForm({ action }) {
                         name="family"
                         required
                         rows={5}
-                        placeholder="없으시면 N/A로 적어주세요"
+                        placeholder="혼자 오신분은 N/A로 적어주세요"
                     />
                 </div>
             </div>
