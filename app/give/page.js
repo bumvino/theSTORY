@@ -1,20 +1,22 @@
 // app/giving/page.js
-export const metadata = { title: '온라인 헌금 | Giving' };
+import Image from "next/image";
+
+export const metadata = { title: "온라인 헌금 | Giving" };
 
 export default function GivingPage() {
     return (
-        <section className="about-section" style={{ color: '#000000' }}>
+        <section className="about-section" style={{ color: "#000000" }}>
             <div
                 className="content-container"
-                style={{ maxWidth: 700, margin: '0 auto', textAlign: 'left' }}
+                style={{ maxWidth: 700, margin: "0 auto", textAlign: "left" }}
             >
                 {/* Title */}
                 <h1
                     className="about-title"
                     style={{
-                        color: '#28C3EA',
+                        color: "#28C3EA",
                         fontWeight: 700,
-                        marginBottom: '0.75rem',
+                        marginBottom: "0.75rem",
                     }}
                 >
                     온라인 헌금 | Giving
@@ -23,12 +25,12 @@ export default function GivingPage() {
                 {/* Bible Verse Highlight */}
                 <div
                     style={{
-                        marginBottom: '2rem',
-                        fontStyle: 'italic',
-                        fontSize: '1.2rem',
+                        marginBottom: "2rem",
+                        fontStyle: "italic",
+                        fontSize: "1.2rem",
                         lineHeight: 1.7,
-                        textAlign: 'center',
-                        color: '#1e2a38',
+                        textAlign: "center",
+                        color: "#1e2a38",
                     }}
                 >
                     “각각 그 마음에 정한 대로 할 것이요 억지로나 인색함으로 하지 말지니
@@ -37,11 +39,11 @@ export default function GivingPage() {
                     <br />
                     <span
                         style={{
-                            color: '#28C3EA',
+                            color: "#28C3EA",
                             fontWeight: 700,
-                            display: 'inline-block',
-                            marginTop: '.5rem',
-                            fontSize: '1.1rem',
+                            display: "inline-block",
+                            marginTop: ".5rem",
+                            fontSize: "1.1rem",
                         }}
                     >
             (고린도후서 9:7)
@@ -49,13 +51,13 @@ export default function GivingPage() {
                 </div>
 
                 {/* Zelle */}
-                <div className="worship-card" style={{ marginBottom: '1.5rem' }}>
+                <div className="worship-card" style={{ marginBottom: "1.5rem" }}>
                     <h3
                         style={{
-                            color: '#28C3EA',
+                            color: "#28C3EA",
                             fontWeight: 700,
                             margin: 0,
-                            marginBottom: '.5rem',
+                            marginBottom: ".5rem",
                         }}
                     >
                         Zelle
@@ -63,9 +65,9 @@ export default function GivingPage() {
                     <p style={{ margin: 0 }}>Zelle 앱에서 아래 이메일을 사용하세요:</p>
                     <p
                         style={{
-                            margin: '.25rem 0 1rem',
+                            margin: ".25rem 0 1rem",
                             fontWeight: 700,
-                            color: '#1e2a38',
+                            color: "#1e2a38",
                         }}
                     >
                         thestorywc@gmail.com
@@ -74,28 +76,28 @@ export default function GivingPage() {
                     <figure
                         style={{
                             margin: 0,
-                            display: 'inline-flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
+                            display: "inline-flex",
+                            flexDirection: "column",
+                            alignItems: "center",
                             width: 180,
                         }}
                     >
-                        <img
+                        <Image
                             src="/images/zelle-qr.png"
                             alt="Zelle QR Code"
+                            width={180}
+                            height={180}
                             style={{
-                                width: 180,
-                                height: 180,
-                                border: '1px solid #ddd',
+                                border: "1px solid #ddd",
                                 borderRadius: 8,
                             }}
                         />
                         <figcaption
                             style={{
-                                fontSize: '.9rem',
-                                marginTop: '.5rem',
-                                color: '#000000',
-                                textAlign: 'center',
+                                fontSize: ".9rem",
+                                marginTop: ".5rem",
+                                color: "#000000",
+                                textAlign: "center",
                             }}
                         >
                             Zelle QR 코드 (스캔하여 헌금)
@@ -104,13 +106,13 @@ export default function GivingPage() {
                 </div>
 
                 {/* Vanco */}
-                <div className="worship-card" style={{ marginBottom: '1.5rem' }}>
+                <div className="worship-card" style={{ marginBottom: "1.5rem" }}>
                     <h3
                         style={{
-                            color: '#28C3EA',
+                            color: "#28C3EA",
                             fontWeight: 700,
                             margin: 0,
-                            marginBottom: '.5rem',
+                            marginBottom: ".5rem",
                         }}
                     >
                         Vanco Online Giving
