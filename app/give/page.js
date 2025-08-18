@@ -31,7 +31,8 @@ export default function GivingPage() {
                         color: '#1e2a38',
                     }}
                 >
-                    “각각 그 마음에 정한 대로 할 것이요 억지로나 인색함으로 하지 말지니<br/>
+                    “각각 그 마음에 정한 대로 할 것이요 억지로나 인색함으로 하지 말지니
+                    <br />
                     하나님은 즐겨 내는 자를 사랑하시느니라”
                     <br />
                     <span
@@ -43,8 +44,8 @@ export default function GivingPage() {
                             fontSize: '1.1rem',
                         }}
                     >
-                        (고린도후서 9:7)
-                    </span>
+            (고린도후서 9:7)
+          </span>
                 </div>
 
                 {/* Zelle */}
@@ -70,7 +71,6 @@ export default function GivingPage() {
                         thestorywc@gmail.com
                     </p>
 
-                    {/* QR + caption stay aligned */}
                     <figure
                         style={{
                             margin: 0,
@@ -118,11 +118,13 @@ export default function GivingPage() {
                     <p style={{ margin: 0 }}>
                         신용카드 또는 은행 계좌로 안전하게 헌금하시려면 아래 버튼을 클릭하세요.
                     </p>
+
+                    {/* ✅ Use the same style as header buttons */}
                     <a
                         href="https://secure.myvanco.com/L-ZM6A/home"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-primary"
+                        className="nav-button"
                     >
                         Give via Vanco
                     </a>

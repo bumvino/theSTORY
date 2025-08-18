@@ -86,6 +86,23 @@ img { display: block; max-width: 100%; height: auto; }
     display: flex;
 }
 
+/* Same look as header nav buttons */
+.nav-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #28C3EA;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.nav-button:hover {
+    background: #1ba6c6; /* same hover color as header */
+}
+
 .dropdown-content a {
     padding: .5rem 1rem;
     white-space: nowrap;
