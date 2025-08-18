@@ -55,7 +55,6 @@ export default function HomePage() {
                         <ul>
                             <li>기도모임 | 목요일 오후 7:30</li>
                             <li>찬양예배 | 매달 첫 목요일 오후 7:30</li>
-                            <li>QT 모임 | 수요일 오전 10:30</li>
                         </ul>
                     </div>
                     <div className="worship-card">

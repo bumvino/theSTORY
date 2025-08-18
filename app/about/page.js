@@ -2,7 +2,7 @@ export default function AboutPage() {
     return (
         <section className="about-section">
             <div className="content-container">
-                <h1 className="about-title">The STORY</h1>
+                <h1 className="about-title">the STORY</h1>
                 <h2 className="about-subtitle">Worshiping Community</h2>
 
                 <div className="about-text">
