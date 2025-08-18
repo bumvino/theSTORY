@@ -1,3 +1,6 @@
+// app/pastor/page.js
+import Image from 'next/image';
+
 export default function PastorPage() {
     return (
         <section className="pastor-section">
@@ -5,7 +8,14 @@ export default function PastorPage() {
 
             <div className="pastor-intro-container">
                 <div className="pastor-photo">
-                    <img src="/images/pastor.jpg" alt="Pastor" />
+                    <Image
+                        src="/images/pastor.jpg"
+                        alt="Pastor"
+                        width={300}      // pick the natural width of your image
+                        height={400}     // pick the natural height (keeps aspect ratio)
+                        style={{ width: '100%', height: 'auto', borderRadius: 8 }}
+                        priority
+                    />
                 </div>
 
                 <div className="pastor-intro">
