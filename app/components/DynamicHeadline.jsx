@@ -20,7 +20,7 @@ export default function DynamicHeadline() {
                 우리는 하나님이
                 <span className="insertion">
           <span className="tick">✓</span>
-          <span className="above">써가시는</span>
+          <span className="above">써가시는...</span>
         </span>
                 스토리 안에서
                 <br />
