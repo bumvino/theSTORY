@@ -28,7 +28,7 @@ export default async function BulletinDetail({ params }) {
             >
                 {/* Title - now bold */}
                 <h1 className="about-title" style={{ fontSize: '1.6rem', color: '#28C3EA', fontWeight: 'bold' }}>
-                    더스토리 주일예배 Week #{f.weekNumber || '—'}
+                    주일예배 Week {f.weekNumber || '—'}
                 </h1>
 
                 {/* 장소 / 시간 */}
