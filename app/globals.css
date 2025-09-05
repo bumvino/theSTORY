@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ==================================================
    0) FONT
 ================================================== */
@@ -134,7 +136,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .headline h2 {
     margin: 0rem;
-    font-size: 2.2rem; font-weight: 700; line-height: 1.4;
+    font-weight: 700; line-height: 1.4;
 }
 
 .headline-static { display: inline; }
