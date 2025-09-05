@@ -46,8 +46,8 @@ export default function Header() {
                             MINISTRIES
                         </a>
                         <div className="dropdown-content">
-                            <Link href="/ministries/women">Women in The STORY</Link>
-                            <Link href="/ministries/men">Men in The STORY</Link>
+                            <Link href="/ministries/women">Women in the STORY</Link>
+                            <Link href="/ministries/men">Men in the STORY</Link>
                         </div>
                     </div>
 

@@ -43,22 +43,25 @@ export default async function BulletinDetail({ params }) {
                 {divider}
 
                 {/* 말씀 / Sermon */}
-                <p style={{ fontSize: '1.1rem', fontWeight: 500 }}>
-                    <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>말씀</span>{' '}
-                    <span style={{ color: '#777' }}>{f.preacher || '—'}</span>
-                    <br />
-                    <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>Sermon</span>{' '}
-                    <span style={{ color: '#777' }}>{f.preacherEng || '—'}</span>
-                </p>
+                <div style={{ fontSize: '1.1rem', fontWeight: 500, marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                        <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>말씀</span>
+                        <span style={{ color: '#777' }}>{f.preacher || '—'}</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>Sermon</span>
+                        <span style={{ color: '#777' }}>{f.preacherEng || '—'}</span>
+                    </div>
+                </div>
 
                 {/* 제목(중앙) + 본문(우측) */}
                 <div style={{ fontSize: '1.1rem', color: '#777' }}>
-                    <p style={{ textAlign: 'center', margin: 0 }}>
+                    <p style={{ textAlign: 'center', margin: '0 0 1.5rem' }}>
                         “{f.sermonTitle || '—'}”
                         <br />
                         {f.sermonTitleEng || ''}
                     </p>
-                    <p style={{ textAlign: 'right', margin: '0.25rem 0 0', color: '#28C3EA', fontWeight: 'bold' }}>
+                    <p style={{ textAlign: 'right', margin: '0.25rem 0 0', color: '#28C3EA', fontWeight: 'bold', marginbottom: '10.5rem' }}>
                         {f.scriptureReference || ''}
                     </p>
                 </div>
