@@ -1,6 +1,11 @@
 export const metadata = {
-    title: 'The STORY',
-    description: 'The STORY Worshiping Community',
+    title: "the STORY", // 👈 this controls the browser tab text
+    description: "Welcome to the STORY", // optional
+    icons: {
+        icon: "/favicon.ico",              // standard favicon
+        shortcut: "/favicon.ico",
+        apple: "/apple-touch-icon.png",    // for iOS home screen
+    },
 };
 
 import './globals.css';
