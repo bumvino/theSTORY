@@ -18,25 +18,25 @@ export default function HomePage() {
                     <Link href="/visit" className="feature-card">
                         <div className="feature-icon">📍</div>
                         <h3>오시는길</h3>
-                        <p>예배 장소와 시간 정보를 확인하세요.</p>
+                        <p>예배 장소와 시간 정보를 <br/>확인하세요.</p>
                     </Link>
 
                     <Link href="/connect" className="feature-card">
                         <div className="feature-icon">🤝</div>
                         <h3>새가족안내</h3>
-                        <p>처음 오셨다면 이곳을 확인하세요.</p>
+                        <p>처음 오셨다면 이곳을 <br/>확인하세요.</p>
                     </Link>
 
                     <Link href="/give" className="feature-card">
                         <div className="feature-icon">💝</div>
                         <h3>온라인 헌금</h3>
-                        <p>감사와 헌신을 온라인으로 드릴 수 있어요.</p>
+                        <p>감사와 헌신을 온라인으로 <br/>드릴 수 있어요.</p>
                     </Link>
 
                     <Link href="/events" className="feature-card">
                         <div className="feature-icon">📅</div>
                         <h3>이벤트</h3>
-                        <p>다가오는 교회 모임과 사역을 확인하세요.</p>
+                        <p>다가오는 교회 모임과 사역을 <br/>확인하세요.</p>
                     </Link>
                 </div>
             </section>
@@ -53,7 +53,7 @@ export default function HomePage() {
                     <div className="worship-card">
                         <h3>주중 예배</h3>
                         <ul>
-                            <li>기도모임 | 목요일 오후 7:30</li>
+                            <li>기도모임 | 금요일 오후 7:30</li>
                             <li>찬양예배 | 매달 첫 목요일 오후 7:30</li>
                         </ul>
                     </div>

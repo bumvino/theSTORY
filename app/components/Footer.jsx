@@ -3,14 +3,26 @@ export default function Footer() {
         <footer className="site-footer">
             <div className="footer-container">
                 {/* Column 1: Title & Social */}
-                <div className="footer-col">
-                    <h4>the STORY <br /> Worshiping Community</h4>
-                    <div className="footer-social">
-                        <a href="https://instagram.com/the.story.wc" target="_blank" rel="noreferrer" aria-label="Instagram">
-                            <img src="/icons/instagram.svg" alt="Instagram" />
+                <div className="footer-col text-center sm:text-left">
+                    <h4>
+                        the STORY <br /> Worshiping Community
+                    </h4>
+                    <div className="footer-social flex justify-center sm:justify-start mt-2 gap-3">
+                        <a
+                            href="https://instagram.com/the.story.wc"
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="Instagram"
+                        >
+                            <img src="/icons/instagram.svg" alt="Instagram" className="w-6 h-6" />
                         </a>
-                        <a href="https://youtube.com/@TheStoryWorshipingCommunity" target="_blank" rel="noreferrer" aria-label="YouTube">
-                            <img src="/icons/youtube.svg" alt="YouTube" />
+                        <a
+                            href="https://youtube.com/@TheStoryWorshipingCommunity"
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="YouTube"
+                        >
+                            <img src="/icons/youtube.svg" alt="YouTube" className="w-6 h-6" />
                         </a>
                     </div>
                 </div>
