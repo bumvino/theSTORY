@@ -5,7 +5,7 @@ export default function Footer() {
                 {/* Column 1: Title & Social */}
                 <div className="footer-col text-center sm:text-left">
                     <h4>
-                        the STORY <br /> Worshiping Community
+                        theSTORY <br /> Worshiping Community
                     </h4>
                     <div className="footer-social flex justify-center sm:justify-start mt-2 gap-3">
                         <a
@@ -52,7 +52,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>© 2025 The Story Worshiping Community. All rights reserved.</p>
+                <p>© 2025 theStory Worshiping Community. All rights reserved.</p>
             </div>
         </footer>
     );

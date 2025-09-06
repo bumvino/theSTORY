@@ -41,10 +41,10 @@ export default async function BulletinDetail({ params }) {
 
                 {/* 장소 / 시간 */}
                 <p style={{ fontSize: '1.1rem', fontWeight: 500 }}>
-                    <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>장소:</span>{' '}
+                    <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>장소</span>{' '}
                     <span style={{ color: '#777' }}>{f.location || '—'}</span>
                     <br />
-                    <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>시간:</span>{' '}
+                    <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>시간</span>{' '}
                     <span style={{ color: '#777' }}>{f.serviceTime || '—'}</span>
                 </p>
 

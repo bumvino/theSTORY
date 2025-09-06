@@ -2,12 +2,12 @@ export default function AboutPage() {
     return (
         <section className="about-section">
             <div className="content-container">
-                <h1 className="about-title">the STORY</h1>
+                <h1 className="about-title">theSTORY</h1>
                 <h2 className="about-subtitle">Worshiping Community</h2>
 
                 <div className="about-text">
                     <p>
-                        The STORY Worshiping Community is a church dedicated to serving
+                        theSTORY Worshiping Community is a church dedicated to serving
                         Korean-Americans with third-culture identities. We aim to bridge the
                         gap for those who feel alienated by cultural differences in both Korean
                         and American churches. Our commitment is to integrate every individual&apos;s
