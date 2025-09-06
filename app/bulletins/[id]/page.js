@@ -1,32 +1,40 @@
+// Rebuild this route at most every 60s (ISR)
+export const revalidate = 60;
+// (Optional) make it explicit that new IDs after build are allowed
+export const dynamicParams = true;
+
 import { cfClient } from '@/lib/contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
     const res = await cfClient.getEntries({ content_type: 'bulletin', select: 'sys.id' });
-    return res.items.map((i) => ({ id: i.sys.id }));
+    return res.items.map(i => ({ id: i.sys.id }));
 }
 
 export default async function BulletinDetail({ params }) {
-    const resolved = (typeof params?.then === 'function') ? await params : params;
-    const { id } = resolved;
-    const entry = await cfClient.getEntry(id);
-    const f = entry?.fields;
-    if (!f) return <div style={{ padding: 24, color: '#777' }}>Bulletin not found.</div>;
+    const { id } = params;
 
-    const divider = <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '2px solid #ccc' }} />;
+    let entry = null;
+    try {
+        entry = await cfClient.getEntry(id);
+    } catch (_) {
+        return notFound();
+    }
+    const f = entry?.fields;
+    if (!f) return notFound();
+
+    const divider = (
+        <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '2px solid #ccc' }} />
+    );
 
     return (
         <section className="about-section" style={{ fontSize: '1rem', color: '#777' }}>
             <div
                 className="content-container"
-                style={{
-                    textAlign: 'left',
-                    maxWidth: 700,
-                    margin: '0 auto',
-                    padding: '0 1rem'
-                }}
+                style={{ textAlign: 'left', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}
             >
-                {/* Title - now bold */}
+                {/* Title */}
                 <h1 className="about-title" style={{ fontSize: '1.6rem', color: '#28C3EA', fontWeight: 'bold' }}>
                     주일예배 Week {f.weekNumber || '—'}
                 </h1>
@@ -61,7 +69,16 @@ export default async function BulletinDetail({ params }) {
                         <br />
                         {f.sermonTitleEng || ''}
                     </p>
-                    <p style={{ textAlign: 'right', margin: '0.25rem 0 0', color: '#28C3EA', fontWeight: 'bold', marginbottom: '10.5rem' }}>
+                    {/* FIX: marginbottom -> marginBottom */}
+                    <p
+                        style={{
+                            textAlign: 'right',
+                            margin: '0.25rem 0 0',
+                            color: '#28C3EA',
+                            fontWeight: 'bold',
+                            marginBottom: '10.5rem',
+                        }}
+                    >
                         {f.scriptureReference || ''}
                     </p>
                 </div>
@@ -73,10 +90,13 @@ export default async function BulletinDetail({ params }) {
                     더스토리 소식 Announcement
                 </h3>
                 <div style={{ color: '#777', fontSize: '1rem' }}>
-                    {f.announcements
-                        ? documentToReactComponents(f.announcements)
-                        : <em>—</em>}
+                    {f.announcements ? documentToReactComponents(f.announcements) : <em>—</em>}
                 </div>
+
+                {/* debug timestamp to confirm ISR */}
+                <small style={{ display: 'block', marginTop: 24, opacity: 0.6 }}>
+                    Rendered at: {new Date().toISOString()}
+                </small>
             </div>
         </section>
     );
