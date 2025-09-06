@@ -7,7 +7,7 @@ export default function HomePage() {
             <DynamicHeadline />
 
             <section className="features-section" id="features">
-                <h2 className="features-heading">Welcome to the STORY</h2>
+                <h2 className="features-heading">Welcome to theSTORY</h2>
                 <div className="features-grid">
                     <Link href="/bulletins" className="feature-card">
                         <div className="feature-icon">📰</div>
