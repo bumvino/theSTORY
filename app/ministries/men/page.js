@@ -47,7 +47,7 @@ export default function MenMinistryPage() {
                         참여를 원하시는 남성은 누구나 환영합니다.
                     </p>
                     <p style={{ margin: 0 }}>
-                        이메일: <a href="mailto:thestorywc@gmail.com">thestorywc@gmail.com</a><br />
+                        이메일: <a href="mailto:admin@thestorywc.org">admin@thestorywc.org</a><br />
                         전화: <a href="tel:+16786821250">678-682-1250</a>
                     </p>
                 </div>

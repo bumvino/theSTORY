@@ -18,7 +18,7 @@ export default function WomenMinistryPage() {
                         Every Wednesday
                     </h3>
                     <p style={{ margin: '0.25rem 0 0.25rem' }}>
-                        매주 수요일 <strong>오전 9시 30분</strong>
+                        매주 수요일 <strong>오전 10시 30분</strong>
                     </p>
                     <p style={{ margin: 0 }}>
                         ☕ 커피 한잔과 함께 말씀을 나누고 삶을 나누는 <strong>여성들만의 따뜻한 만남</strong>
@@ -45,7 +45,7 @@ export default function WomenMinistryPage() {
                         참여를 원하시는 여성은 누구나 환영합니다.
                     </p>
                     <p style={{ margin: 0 }}>
-                        이메일: <a href="mailto:thestorywc@gmail.com">thestorywc@gmail.com</a><br />
+                        이메일: <a href="mailto:admin@thestorywc.org">admin@thestorywc.org</a><br />
                         전화: <a href="tel:+16786821250">678-682-1250</a>
                     </p>
                 </div>
