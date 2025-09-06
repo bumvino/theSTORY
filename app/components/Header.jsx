@@ -30,6 +30,7 @@ export default function Header() {
                         <div className="dropdown-content">
                             <Link href="/about">About Us</Link>
                             <Link href="/pastor">Our Pastor</Link>
+                            <Link href="/bulletins">Bulletins 주보</Link>
                         </div>
                     </div>
 
