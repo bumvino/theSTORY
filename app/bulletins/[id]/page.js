@@ -76,7 +76,7 @@ export default async function BulletinDetail({ params }) {
                             margin: '0.25rem 0 0',
                             color: '#28C3EA',
                             fontWeight: 'bold',
-                            marginBottom: '10.5rem',
+                            marginBottom: '1.5rem',
                         }}
                     >
                         {f.scriptureReference || ''}
