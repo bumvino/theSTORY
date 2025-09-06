@@ -14,7 +14,7 @@ export default function MinistriesLanding() {
                 {/* Women in theSTORY */}
                 <Link href="/ministries/women" className="feature-card">
                     <div className="feature-icon">👩🏻</div>
-                    <h3>Women in the STORY</h3>
+                    <h3>Women in theSTORY</h3>
                     <p>
                         자매들이 함께 예배하며 말씀 묵상과
                         기도로 삶을 나누는 공동체입니다.
@@ -24,7 +24,7 @@ export default function MinistriesLanding() {
                 {/* Men in theSTORY */}
                 <Link href="/ministries/men" className="feature-card">
                     <div className="feature-icon">🧑🏻</div>
-                    <h3>Men in the STORY</h3>
+                    <h3>Men in theSTORY</h3>
                     <p>
                         형제들이 함께 모여 말씀과 삶을 나누며,
                         서로를 세워가는 공동체입니다.
