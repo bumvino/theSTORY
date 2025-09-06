@@ -17,7 +17,7 @@ export default function DynamicHeadline() {
     return (
         <section className="headline">
             <h2 className="headline-korean text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                '우리는 하나님의
+                우리는 '하나님의
                 <span className="insertion">
                 <span className="tick">✓</span>
                 <span className="above">써가시는</span>
