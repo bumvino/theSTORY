@@ -35,7 +35,7 @@ export default async function BulletinDetail({ params }) {
                 style={{ textAlign: 'left', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}
             >
                 {/* Title */}
-                <h1 className="about-title" style={{ fontSize: '1.6rem', color: '#28C3EA', fontWeight: 'bold' }}>
+                <h1 className="about-title" style={{ fontSize: '1.3rem', color: '#28C3EA', fontWeight: 'bold' }}>
                     주일예배 Week {f.weekNumber || '—'}
                 </h1>
 

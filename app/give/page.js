@@ -100,7 +100,7 @@ export default function GivingPage() {
                                 textAlign: "center",
                             }}
                         >
-                            Zelle QR 코드 (스캔하여 헌금)
+                            Zelle QR 코드 (Zelle 앱에서 QR CODE 클릭후 스캔하여 헌금)
                         </figcaption>
                     </figure>
                 </div>
