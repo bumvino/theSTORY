@@ -33,9 +33,9 @@ export default function GivingPage() {
                         color: "#1e2a38",
                     }}
                 >
-                    “각각 그 마음에 정한 대로 할 것이요 억지로나 인색함으로 하지 말지니
+                    “각자 자기가 마음에 결정한 대로 내고, 내키지 않는 마음이나 억지로는 내지 마십시오.
                     <br />
-                    하나님은 즐겨 내는 자를 사랑하시느니라”
+                    하나님께서는 흔쾌히 내는 사람을 사랑하십니다.”
                     <br />
                     <span
                         style={{
@@ -46,7 +46,7 @@ export default function GivingPage() {
                             fontSize: "1.1rem",
                         }}
                     >
-            (고린도후서 9:7)
+            (쉬운성경, 고린도후서 9:7)
           </span>
                 </div>
 
