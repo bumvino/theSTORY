@@ -6,7 +6,7 @@ export default function WomenMinistryPage() {
         <section className="about-section" style={{ color: '#1e2a38' }}>
             <div className="content-container" style={{ maxWidth: 900, textAlign: 'left' }}>
                 <h1 className="about-title" style={{ marginBottom: '0.25rem' }}>
-                    Women in the STORY
+                    Women in theSTORY
                 </h1>
                 <p className="about-subtitle" style={{ marginTop: 0 }}>
                     함께 예배하고, 말씀을 나누고, 삶을 나누는 자매들의 모임

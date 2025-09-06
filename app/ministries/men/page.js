@@ -6,7 +6,7 @@ export default function MenMinistryPage() {
         <section className="about-section" style={{ color: '#1e2a38' }}>
             <div className="content-container" style={{ maxWidth: 900, textAlign: 'left' }}>
                 <h1 className="about-title" style={{ marginBottom: '0.25rem' }}>
-                    Men in the STORY
+                    Men in theSTORY
                 </h1>
                 <p className="about-subtitle" style={{ marginTop: 0 }}>
                     우정과 신앙을 나누는 형제들의 모임
