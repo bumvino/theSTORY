@@ -98,11 +98,21 @@ export default async function BulletinDetail({ params }) {
 
                 {/* 제목(중앙) + 본문(우측) */}
                 <div style={{ fontSize: '1.1rem', color: '#777' }}>
-                    <p style={{ textAlign: 'center', margin: '0 0 1.5rem' }}>
+                    <p style={{ textAlign: 'center', margin: '0 0 0.5rem' }}>
                         “{f.sermonTitle || '—'}”
-                        <br />
-                        {f.sermonTitleEng || ''}
                     </p>
+                    {f.sermonTitleEng && (
+                        <p
+                            style={{
+                                textAlign: 'center',
+                                margin: '0.5rem 0 1.5rem',   // gap above + below
+                                fontSize: '0.8rem',         // smaller than Korean
+                                color: '#777',
+                            }}
+                        >
+                            {f.sermonTitleEng}
+                        </p>
+                    )}
                     <p
                         style={{
                             textAlign: 'right',
