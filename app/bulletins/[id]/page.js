@@ -1,15 +1,49 @@
 // Rebuild this route at most every 60s (ISR)
 export const revalidate = 60;
-// (Optional) make it explicit that new IDs after build are allowed
+// Allow new IDs after build
 export const dynamicParams = true;
 
 import { cfClient } from '@/lib/contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { notFound } from 'next/navigation';
+
+// Custom Rich Text render options
+const rtOptions = {
+    renderMark: {
+        [MARKS.BOLD]: (text) => <strong style={{ fontWeight: 700 }}>{text}</strong>,
+        [MARKS.ITALIC]: (text) => <em style={{ fontStyle: 'italic' }}>{text}</em>,
+    },
+    renderNode: {
+        [BLOCKS.HEADING_1]: (_n, ch) => (
+            <h1 style={{ fontSize: '1.4rem', margin: '1.25rem 0 0.5rem', lineHeight: 1.25, color: '#333' }}>{ch}</h1>
+        ),
+        [BLOCKS.HEADING_2]: (_n, ch) => (
+            <h2 style={{ fontSize: '1.25rem', margin: '1.1rem 0 0.5rem', lineHeight: 1.3, color: '#333' }}>{ch}</h2>
+        ),
+        [BLOCKS.HEADING_3]: (_n, ch) => (
+            <h3 style={{ fontSize: '1.15rem', margin: '1rem 0 0.5rem', lineHeight: 1.35, color: '#333' }}>{ch}</h3>
+        ),
+        [BLOCKS.HEADING_4]: (_n, ch) => (
+            <h4 style={{ fontSize: '1.05rem', margin: '0.9rem 0 0.4rem', lineHeight: 1.4, color: '#333' }}>{ch}</h4>
+        ),
+        [BLOCKS.PARAGRAPH]: (_n, ch) => (
+            <p style={{ margin: '0.4rem 0', lineHeight: 1.6 }}>{ch}</p>
+        ),
+        [BLOCKS.UL_LIST]: (_n, ch) => (
+            <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ul>
+        ),
+        [BLOCKS.OL_LIST]: (_n, ch) => (
+            <ol style={{ listStyle: 'decimal', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ol>
+        ),
+        [BLOCKS.LIST_ITEM]: (_n, ch) => <li style={{ margin: '0.25rem 0' }}>{ch}</li>,
+        [BLOCKS.HR]: () => <hr style={{ border: 'none', borderTop: '1px solid #e5e5e5', margin: '1rem 0' }} />,
+    },
+};
 
 export async function generateStaticParams() {
     const res = await cfClient.getEntries({ content_type: 'bulletin', select: 'sys.id' });
-    return res.items.map(i => ({ id: i.sys.id }));
+    return res.items.map((i) => ({ id: i.sys.id }));
 }
 
 export default async function BulletinDetail({ params }) {
@@ -69,7 +103,6 @@ export default async function BulletinDetail({ params }) {
                         <br />
                         {f.sermonTitleEng || ''}
                     </p>
-                    {/* FIX: marginbottom -> marginBottom */}
                     <p
                         style={{
                             textAlign: 'right',
@@ -89,11 +122,13 @@ export default async function BulletinDetail({ params }) {
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#28C3EA' }}>
                     더스토리 소식 Announcement
                 </h3>
-                <div style={{ color: '#777', fontSize: '1rem' }}>
-                    {f.announcements ? documentToReactComponents(f.announcements) : <em>—</em>}
+                <div className="announcement-content" style={{ color: '#777', fontSize: '1rem' }}>
+                    {f.announcements
+                        ? documentToReactComponents(f.announcements, rtOptions)
+                        : <em>—</em>}
                 </div>
 
-                {/* debug timestamp to confirm ISR */}
+                {/* Debug timestamp for ISR */}
                 <small style={{ display: 'block', marginTop: 24, opacity: 0.6 }}>
                     Rendered at: {new Date().toISOString()}
                 </small>
