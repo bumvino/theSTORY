@@ -1,0 +1,34 @@
+.insertion {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding-right: 0em;
+    z-index: 1;
+}
+
+/* optional style for the checkmark */
+.tick {
+    font-size: 1.2em;
+    font-weight: 100;          /* requires Inter 100 (imported) */
+    display: inline-block;
+    line-height: 1;
+    transform: rotate(30deg);
+    transform-origin: center;
+    position: relative;
+    top: -0.3em;
+    left: 0.2em;
+    color: var(--brand);
+}
+
+/* Handwritten overlay word */
+.above {
+    position: absolute;
+    top: -2rem;             /* move upward instead of down */
+    left: 1.5rem;
+    transform: rotate(-20deg);
+    white-space: nowrap;
+    font-size: 0.5em;
+    color: #333;
+    pointer-events: none;
+    z-index: 1;
+}

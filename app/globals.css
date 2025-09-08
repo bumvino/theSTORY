@@ -370,43 +370,6 @@ input[type="submit"]:hover { color: var(--brand); }
     line-height: 1.35;
     word-break: keep-all;
 }
-
-/* annotation block between words */
-.insertion {
-    position: relative;
-    display: inline-block;
-    margin: 0;
-    padding-right: 0em;
-    z-index: 1;
-}
-
-/* tick */
-.tick {
-    font-size: 1.6em;
-    font-weight: 100;          /* requires Inter 100 (imported) */
-    display: inline-block;
-    line-height: 1;
-    transform: rotate(30deg);
-    transform-origin: center;
-    position: relative;
-    top: -0.35em;
-    left: 0.2em;
-    color: var(--brand);
-}
-
-/* inserted word above tick */
-.above {
-    position: absolute;
-    bottom: 100%;
-    left: 100%;
-    transform: translateX(-20%);
-    white-space: nowrap;
-    font-size: 0.9em;
-    color: #333;
-    pointer-events: none;
-    z-index: 1;
-}
-
 /* rotating word */
 .kr-rotator {
     display: inline-block;
