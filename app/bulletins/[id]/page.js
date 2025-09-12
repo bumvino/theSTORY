@@ -1,14 +1,19 @@
+// /app/bulletin/[id]/page.js
+
 // Rebuild this route at most every 60s (ISR)
 export const revalidate = 60;
 // Allow new IDs after build
 export const dynamicParams = true;
 
 import { cfClient } from '@/lib/contentful';
+import { notFound } from 'next/navigation';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
-import { notFound } from 'next/navigation';
 
-// Custom Rich Text render options
+// --- CONFIG: set your Contentful locale here ---
+const CF_LOCALE = 'en-US';
+
+// --- Rich Text render options ---
 const rtOptions = {
     renderMark: {
         [MARKS.BOLD]: (text) => <strong style={{ fontWeight: 700 }}>{text}</strong>,
@@ -41,22 +46,49 @@ const rtOptions = {
     },
 };
 
+// --- Pre-generate static params for ISR ---
 export async function generateStaticParams() {
-    const res = await cfClient.getEntries({ content_type: 'bulletin', select: 'sys.id' });
-    return res.items.map((i) => ({ id: i.sys.id }));
+    const res = await cfClient.getEntries({
+        content_type: 'bulletin',
+        select: 'sys.id',
+        locale: CF_LOCALE, // be explicit
+    });
+    return (res.items || []).map((i) => ({ id: i.sys.id }));
 }
 
+// --- SEO: dynamic <title> etc. ---
+export async function generateMetadata({ params }) {
+    try {
+        const entry = await cfClient.getEntry(params.id, { locale: CF_LOCALE });
+        const f = entry?.fields || {};
+        const title = f.title || (f.weekNumber ? `주일예배 Week ${f.weekNumber}` : 'Bulletin');
+        return {
+            title: `${title} | The STORY`,
+            openGraph: {
+                title: `${title} | The STORY`,
+            },
+            twitter: {
+                title: `${title} | The STORY`,
+            },
+        };
+    } catch {
+        return { title: 'Bulletin | The STORY' };
+    }
+}
+
+// --- Main component ---
 export default async function BulletinDetail({ params }) {
     const { id } = params;
 
     let entry = null;
     try {
-        entry = await cfClient.getEntry(id);
+        entry = await cfClient.getEntry(id, { locale: CF_LOCALE });
     } catch (_) {
         return notFound();
     }
+
     const f = entry?.fields;
-    if (!f) return notFound();
+    if (!f /* || add stricter checks if you want */) return notFound();
 
     const divider = (
         <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '2px solid #ccc' }} />
@@ -70,7 +102,7 @@ export default async function BulletinDetail({ params }) {
             >
                 {/* Title */}
                 <h1 className="about-title" style={{ fontSize: '1.3rem', color: '#28C3EA', fontWeight: 'bold' }}>
-                    주일예배 Week {f.weekNumber || '—'}
+                    {f.title || <>주일예배 Week {f.weekNumber ?? '—'}</>}
                 </h1>
 
                 {/* 장소 / 시간 */}
@@ -105,8 +137,8 @@ export default async function BulletinDetail({ params }) {
                         <p
                             style={{
                                 textAlign: 'center',
-                                margin: '0.5rem 0 1.5rem',   // gap above + below
-                                fontSize: '0.8rem',         // smaller than Korean
+                                margin: '0.5rem 0 1.5rem',
+                                fontSize: '0.8rem',
                                 color: '#777',
                             }}
                         >
@@ -133,7 +165,7 @@ export default async function BulletinDetail({ params }) {
                     더스토리 소식 Announcement
                 </h3>
                 <div className="announcement-content" style={{ color: '#777', fontSize: '1rem' }}>
-                    {f.announcements
+                    {f.announcements?.content?.length
                         ? documentToReactComponents(f.announcements, rtOptions)
                         : <em>—</em>}
                 </div>
@@ -146,3 +178,13 @@ export default async function BulletinDetail({ params }) {
         </section>
     );
 }
+
+/*
+---------------------------------------------------------------------------
+Future switch to slug (notes)
+- Rename this file to: /app/bulletin/[slug]/page.js
+- In generateStaticParams(): select 'fields.slug' and return { slug }
+- In fetch: getEntries({ content_type:'bulletin', 'fields.slug': params.slug, limit:1, locale: CF_LOCALE })
+- In webhook route: revalidatePath(`/bulletin/${slug}`, 'page');
+---------------------------------------------------------------------------
+*/
