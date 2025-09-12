@@ -1,5 +1,5 @@
 // Rebuild this route at most every 60s (ISR)
-export const revalidate = 0;
+export const revalidate = 60;
 // Allow new IDs after build
 export const dynamicParams = true;
 
