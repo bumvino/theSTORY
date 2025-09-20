@@ -1,5 +1,7 @@
 // app/pastor/page.js
-import Image from 'next/image';
+import Image from "next/image";
+import Link from "next/link";
+import { Mail } from "lucide-react"; // npm install lucide-react
 
 export default function PastorPage() {
     return (
@@ -11,43 +13,79 @@ export default function PastorPage() {
                     <Image
                         src="/images/pastor.jpg"
                         alt="Pastor"
-                        width={300}      // pick the natural width of your image
-                        height={400}     // pick the natural height (keeps aspect ratio)
-                        style={{ width: '100%', height: 'auto', borderRadius: 8 }}
+                        width={300}
+                        height={400}
+                        style={{ width: "100%", height: "auto", borderRadius: 8 }}
                         priority
                     />
                 </div>
 
                 <div className="pastor-intro">
-                    <p>안녕하세요,<br />하나님을 예배하는 예배자, <strong>최지선 목사</strong>입니다.</p>
-                    <p>찬양하다 보니 예배자가 되어 있었고<br />
+                    <p>
+                        안녕하세요,<br />하나님을 예배하는 예배자, <strong>최지선 목사</strong>
+                        입니다.
+                    </p>
+                    <p>
+                        찬양하다 보니 예배자가 되어 있었고<br />
                         예배하다 보니 목사가 되어 있었습니다.<br />
-                        그렇게 사역하다 보니 교회를 개척하게 하셨습니다.</p>
-                    <p>무대를 사랑하던 연주자가 예배를 더욱 사랑하게 되어<br />
-                        예배의 기쁨과 예배를 통한 회복의 기적을 전하는 사람이 되었습니다.</p>
-                    <p>이제는 교회 안에서의 예배만이 아닌,<br />
-                        삶이 곧 예배가 되는 선교적 예배 공동체를 꿈꿉니다.</p>
-                    <p>삶의 모든 이야기는 하나님께서 써 내려가십니다.<br />
+                        그렇게 사역하다 보니 교회를 개척하게 하셨습니다.
+                    </p>
+                    <p>
+                        무대를 사랑하던 연주자가 예배를 더욱 사랑하게 되어<br />
+                        예배의 기쁨과 예배를 통한 회복의 기적을 전하는 사람이 되었습니다.
+                    </p>
+                    <p>
+                        이제는 교회 안에서의 예배만이 아닌,<br />
+                        삶이 곧 예배가 되는 선교적 예배 공동체를 꿈꿉니다.
+                    </p>
+                    <p>
+                        삶의 모든 이야기는 하나님께서 써 내려가십니다.<br />
                         그 이야기의 한 부분으로 살아갈 수 있음에 감사하며,<br />
-                        기꺼이 하나님의 이야기가 되기로 나 자신을 내어 드립니다.</p>
-                    <p><strong>
-                        God is writing the STORY.<br />
-                        I am grateful for being a part of the STORY.<br />
-                        I am the STORY of God.
-                    </strong></p>
-                    <p>나는 하나님의 <strong>“더스토리”</strong>입니다.</p>
+                        기꺼이 하나님의 이야기가 되기로 나 자신을 내어 드립니다.
+                    </p>
+                    <p>
+                        <strong>
+                            God is writing the STORY.<br />
+                            I am grateful for being a part of the STORY.<br />
+                            I am the STORY of God.
+                        </strong>
+                    </p>
+                    <p>
+                        나는 하나님의 <strong>“더스토리”</strong>입니다.
+                    </p>
+
+                    {/* 📧 Email button */}
+                    <div style={{ marginTop: "1.5rem" }}>
+                        <Link
+                            href="mailto:pastor@example.com?subject=문의드립니다&body=안녕하세요 목사님,"
+                            className="inline-flex items-center gap-2 bg-[#28C3EA] text-white px-5 py-2 rounded-lg hover:bg-[#1da8cd] transition-colors"
+                        >
+                            <Mail className="w-5 h-5" />
+                            목사님께 이메일 보내기
+                        </Link>
+                    </div>
                 </div>
             </div>
 
-            <details className="resume-details">
+            <details className="resume-details" style={{ marginTop: "2rem" }}>
                 <summary>이력</summary>
                 <div className="resume-content">
                     <h4>Education</h4>
                     <ul>
-                        <li>Berklee College of Music 학사 (1999) - Contemporary Writing and Production, BM</li>
-                        <li>University of Miami 석사 (2003) - Media Writing and Production, MM</li>
-                        <li>University of Miami 박사 (2007) - Piano Performance, DMA</li>
-                        <li>Columbia Theological Seminary 목회학 석사 (2017) - Master of Divinity</li>
+                        <li>
+                            Berklee College of Music 학사 (1999) - Contemporary Writing and
+                            Production, BM
+                        </li>
+                        <li>
+                            University of Miami 석사 (2003) - Media Writing and Production, MM
+                        </li>
+                        <li>
+                            University of Miami 박사 (2007) - Piano Performance, DMA
+                        </li>
+                        <li>
+                            Columbia Theological Seminary 목회학 석사 (2017) - Master of
+                            Divinity
+                        </li>
                     </ul>
 
                     <h4>목사안수</h4>
