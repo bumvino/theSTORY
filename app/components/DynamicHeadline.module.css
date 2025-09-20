@@ -21,14 +21,44 @@
 }
 
 /* Handwritten overlay word */
+
 .above {
     position: absolute;
-    top: -2rem;             /* move upward instead of down */
-    left: 1.5rem;
+    top: -2rem;         /* bring closer on default */
+    left: 1.5rem;         /* align better with tick */
     transform: rotate(-20deg);
     white-space: nowrap;
     font-size: 0.5em;
     color: #333;
     pointer-events: none;
     z-index: 1;
+    opacity: 0;
+    animation: fadeInScribble 1s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+    .above {
+        top: -1.8rem;        /* less upward shift on tablets/phones */
+        left: 1rem;
+        font-size: 0.6em;  /* slightly bigger for readability */
+    }
+}
+
+@media (max-width: 480px) {
+    .above {
+        top: -1.5rem;      /* even closer on small phones */
+        left: 0.8rem;
+        font-size: 0.65em;
+    }
+}
+
+@keyframes fadeInScribble {
+    0% {
+        opacity: 0;
+        transform: rotate(-25deg) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(-20deg) scale(1);
+    }
 }
