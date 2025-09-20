@@ -10,8 +10,21 @@ import { notFound } from 'next/navigation';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
-// --- CONFIG: set your Contentful locale here ---
-const CF_LOCALE = 'en-US';
+// --- Try locales in order; adjust to your space ---
+const LOCALES = ['en-US', 'ko-KR', 'en'];
+
+// ---------- Helpers ----------
+async function getEntryWithFallback(id) {
+    for (const loc of LOCALES) {
+        try {
+            const e = await cfClient.getEntry(id, { locale: loc });
+            if (e?.fields) return { entry: e, locale: loc };
+        } catch (_) {
+            // ignore and try next locale
+        }
+    }
+    return { entry: null, locale: null };
+}
 
 // --- Rich Text render options ---
 const rtOptions = {
@@ -32,9 +45,7 @@ const rtOptions = {
         [BLOCKS.HEADING_4]: (_n, ch) => (
             <h4 style={{ fontSize: '1.05rem', margin: '0.9rem 0 0.4rem', lineHeight: 1.4, color: '#333' }}>{ch}</h4>
         ),
-        [BLOCKS.PARAGRAPH]: (_n, ch) => (
-            <p style={{ margin: '0.4rem 0', lineHeight: 1.6 }}>{ch}</p>
-        ),
+        [BLOCKS.PARAGRAPH]: (_n, ch) => <p style={{ margin: '0.4rem 0', lineHeight: 1.6 }}>{ch}</p>,
         [BLOCKS.UL_LIST]: (_n, ch) => (
             <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ul>
         ),
@@ -46,49 +57,41 @@ const rtOptions = {
     },
 };
 
-// --- Pre-generate static params for ISR ---
+// ---------- Pre-generate static params for ISR ----------
 export async function generateStaticParams() {
+    // Don’t force a locale here; let Contentful use the default so we at least get IDs.
     const res = await cfClient.getEntries({
         content_type: 'bulletin',
         select: 'sys.id',
-        locale: CF_LOCALE, // be explicit
+        limit: 200,
     });
     return (res.items || []).map((i) => ({ id: i.sys.id }));
 }
 
-// --- SEO: dynamic <title> etc. ---
+// ---------- SEO ----------
 export async function generateMetadata({ params }) {
     try {
-        const entry = await cfClient.getEntry(params.id, { locale: CF_LOCALE });
+        const { entry } = await getEntryWithFallback(params.id);
         const f = entry?.fields || {};
         const title = f.title || (f.weekNumber ? `주일예배 Week ${f.weekNumber}` : 'Bulletin');
         return {
             title: `${title} | The STORY`,
-            openGraph: {
-                title: `${title} | The STORY`,
-            },
-            twitter: {
-                title: `${title} | The STORY`,
-            },
+            openGraph: { title: `${title} | The STORY` },
+            twitter: { title: `${title} | The STORY` },
         };
     } catch {
         return { title: 'Bulletin | The STORY' };
     }
 }
 
-// --- Main component ---
+// ---------- Main component ----------
 export default async function BulletinDetail({ params }) {
     const { id } = params;
 
-    let entry = null;
-    try {
-        entry = await cfClient.getEntry(id, { locale: CF_LOCALE });
-    } catch (_) {
-        return notFound();
-    }
+    const { entry, locale: resolvedLocale } = await getEntryWithFallback(id);
+    if (!entry?.fields) return notFound();
 
-    const f = entry?.fields;
-    if (!f /* || add stricter checks if you want */) return notFound();
+    const f = entry.fields;
 
     const divider = (
         <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '2px solid #ccc' }} />
@@ -172,7 +175,7 @@ export default async function BulletinDetail({ params }) {
 
                 {/* Debug timestamp for ISR */}
                 <small style={{ display: 'block', marginTop: 24, opacity: 0.6 }}>
-                    Rendered at: {new Date().toISOString()}
+                    Rendered at: {new Date().toISOString()} {resolvedLocale && `• locale: ${resolvedLocale}`}
                 </small>
             </div>
         </section>
@@ -181,10 +184,10 @@ export default async function BulletinDetail({ params }) {
 
 /*
 ---------------------------------------------------------------------------
-Future switch to slug (notes)
+If you later switch to slug:
 - Rename this file to: /app/bulletin/[slug]/page.js
-- In generateStaticParams(): select 'fields.slug' and return { slug }
-- In fetch: getEntries({ content_type:'bulletin', 'fields.slug': params.slug, limit:1, locale: CF_LOCALE })
-- In webhook route: revalidatePath(`/bulletin/${slug}`, 'page');
+- Change generateStaticParams() to select 'fields.slug' and return { slug }
+- Fetch by slug via getEntries({ content_type:'bulletin', 'fields.slug': params.slug, limit:1 })
+- In your webhook: revalidatePath(`/bulletin/${slug}`)
 ---------------------------------------------------------------------------
 */
