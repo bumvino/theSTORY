@@ -57,7 +57,7 @@ export default function PastorPage() {
                     {/* 📧 Email button */}
                     <div style={{ marginTop: "1.5rem" }}>
                         <Link
-                            href="mailto:pastor@example.com?subject=문의드립니다&body=안녕하세요 목사님,"
+                            href="mailto:pastor@thestorywc.org?subject=문의드립니다&body=안녕하세요 목사님,"
                             className="inline-flex items-center gap-2 bg-[#28C3EA] text-white px-5 py-2 rounded-lg hover:bg-[#1da8cd] transition-colors"
                         >
                             <Mail className="w-5 h-5" />
