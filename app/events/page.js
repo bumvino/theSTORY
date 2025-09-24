@@ -29,7 +29,7 @@ export default function EventPage() {
                 {/* Google Map Embed */}
                 <div className="max-w-3xl mx-auto px-4 pb-16">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.7099578741154!2d-84.26755712386365!3d33.97429367318634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5a080c4509415%3A0xc8b6e47c0bd14c29!2sGarrard%20Landing%20Park!5e0!3m2!1sen!2sus!4v1757629324245!5m2!1sen!2sus"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d206.69221889510382!2d-84.16300157546307!3d34.016272857440384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5989fc0b50cb5%3A0xa322ab7d513f5175!2s3294%20Peachtree%20Industrial%20Blvd%2C%20Duluth%2C%20GA%2030096!5e0!3m2!1sen!2sus!4v1755013073728!5m2!1sen!2sus"
                         width="100%"
                         height="450"
                         style={{ border: 0 }}
