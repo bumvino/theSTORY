@@ -6,10 +6,10 @@ export default function EventPage() {
     return (
         <>
             <Head>
-                <title>더스토리교회 가을 피크닉</title>
+                <title>All Together Atlanta 목요찬양예배</title>
                 <meta
                     name="description"
-                    content="더스토리교회 가을 피크닉 with Baby Shower - 9월 14일, 2025, 제라드 랜딩 공원"
+                    content="All Together Atlanta 목요찬양예배 - 10월 9일, 2025, 드림채플"
                 />
             </Head>
 
@@ -17,8 +17,8 @@ export default function EventPage() {
                 {/* Poster */}
                 <div className="max-w-3xl mx-auto px-4 py-8">
                     <Image
-                        src="/events/fall-picnic.png"
-                        alt="더스토리교회 가을 피크닉 포스터"
+                        src="/events/ATA-Oct2025.png"
+                        alt="All Together Atlanta 목요찬양예배"
                         width={800}
                         height={1000}
                         className="w-full h-auto rounded-xl shadow"
