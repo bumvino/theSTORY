@@ -17,7 +17,7 @@ export default function EventPage() {
                 {/* Poster */}
                 <div className="max-w-3xl mx-auto px-4 py-8">
                     <Image
-                        src="/events/ATA-Oct2025.png"
+                        src="/events/ATA-Nov2025.png"
                         alt="All Together Atlanta 목요찬양예배"
                         width={800}
                         height={1000}
