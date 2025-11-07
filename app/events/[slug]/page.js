@@ -174,7 +174,7 @@ export default async function EventDetail({ params }) {
                         {documentToReactComponents(f.body, rtOptions)}
                     </div>
                 ) : (
-                    <em>상세 내용이 없습니다.</em>
+                    <em> </em>
                 )}
 
                 {/* Map Embed */}
