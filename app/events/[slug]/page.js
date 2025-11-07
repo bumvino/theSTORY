@@ -9,8 +9,25 @@ import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
+// ----------------------------
+// Locale + Timezone constants
+// ----------------------------
 const LOCALES = ['en-US', 'ko-KR', 'en'];
+const SITE_TZ = 'America/New_York';
 
+// Helper: consistent Eastern time formatting
+const fmtDateTime = (iso, locale = 'ko-KR') =>
+    iso
+        ? new Intl.DateTimeFormat(locale, {
+            timeZone: SITE_TZ,
+            dateStyle: 'long',
+            timeStyle: 'short',
+        }).format(new Date(iso))
+        : '';
+
+// ----------------------------
+// Fetch with locale fallback
+// ----------------------------
 async function getEventWithFallback(slug) {
     for (const loc of LOCALES) {
         try {
@@ -43,6 +60,9 @@ export async function generateMetadata({ params }) {
     };
 }
 
+// ----------------------------
+// Rich Text render options
+// ----------------------------
 const rtOptions = {
     renderMark: {
         [MARKS.BOLD]: (text) => <strong style={{ fontWeight: 700 }}>{text}</strong>,
@@ -50,7 +70,16 @@ const rtOptions = {
     },
     renderNode: {
         [BLOCKS.HEADING_2]: (_n, ch) => (
-            <h2 style={{ fontSize: '1.25rem', margin: '1.1rem 0 0.5rem', lineHeight: 1.3, color: '#333' }}>{ch}</h2>
+            <h2
+                style={{
+                    fontSize: '1.25rem',
+                    margin: '1.1rem 0 0.5rem',
+                    lineHeight: 1.3,
+                    color: '#333',
+                }}
+            >
+                {ch}
+            </h2>
         ),
         [BLOCKS.PARAGRAPH]: (_n, ch) => <p style={{ margin: '0.4rem 0', lineHeight: 1.6 }}>{ch}</p>,
         [BLOCKS.UL_LIST]: (_n, ch) => (
@@ -60,10 +89,15 @@ const rtOptions = {
             <ol style={{ listStyle: 'decimal', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ol>
         ),
         [BLOCKS.LIST_ITEM]: (_n, ch) => <li style={{ margin: '0.25rem 0' }}>{ch}</li>,
-        [BLOCKS.HR]: () => <hr style={{ border: 'none', borderTop: '1px solid #e5e5e5', margin: '1rem 0' }} />,
+        [BLOCKS.HR]: () => (
+            <hr style={{ border: 'none', borderTop: '1px solid #e5e5e5', margin: '1rem 0' }} />
+        ),
     },
 };
 
+// ----------------------------
+// Main Component
+// ----------------------------
 export default async function EventDetail({ params }) {
     const { entry, locale } = await getEventWithFallback(params.slug);
     if (!entry?.fields) return notFound();
@@ -101,7 +135,10 @@ export default async function EventDetail({ params }) {
                 )}
 
                 {/* Title */}
-                <h1 className="about-title" style={{ fontSize: '1.3rem', color: '#28C3EA', fontWeight: 'bold' }}>
+                <h1
+                    className="about-title"
+                    style={{ fontSize: '1.3rem', color: '#28C3EA', fontWeight: 'bold' }}
+                >
                     {f.title || 'Event'}
                 </h1>
 
@@ -110,12 +147,7 @@ export default async function EventDetail({ params }) {
                     {f.date && (
                         <>
                             <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>일정</span>{' '}
-                            <span style={{ color: '#777' }}>
-                                {new Date(f.date).toLocaleString('ko-KR', {
-                                    dateStyle: 'long',
-                                    timeStyle: 'short',
-                                })}
-                            </span>
+                            <span style={{ color: '#777' }}>{fmtDateTime(f.date)}</span>
                             <br />
                         </>
                     )}
@@ -142,7 +174,7 @@ export default async function EventDetail({ params }) {
                         {documentToReactComponents(f.body, rtOptions)}
                     </div>
                 ) : (
-                    <em> </em>
+                    <em>상세 내용이 없습니다.</em>
                 )}
 
                 {/* Map Embed */}
