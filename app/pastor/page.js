@@ -6,7 +6,7 @@ import { Mail } from "lucide-react"; // npm install lucide-react
 export default function PastorPage() {
     return (
         <section className="pastor-section">
-            <h2 className="pastor-heading">우리 목사님 소개</h2>
+            <h1 className="about-title">우리 목사님 소개</h1>
 
             <div className="pastor-intro-container">
                 <div className="pastor-photo">
