@@ -235,7 +235,7 @@ img { display: block; max-width: 100%; height: auto; }
 ================================================== */
 .about-section { padding: 2rem 2rem 4rem; }
 .content-container { max-width: 900px; margin: 0 auto; padding: 0 1rem; text-align: center; }
-.about-title { font-size: 2.5rem; color: var(--brand); margin-bottom: .5rem; }
+.about-title { font-size: 2.5rem; font-weight: bold; color: var(--brand); margin-bottom: .5rem; }
 .about-subtitle { font-size: 1.5rem; color: var(--text); margin-bottom: 2rem; }
 .about-text p { margin-bottom: 1.5rem; line-height: 1.8; font-size: 1rem; }
 .about-text p[lang="ko"] { font-style: normal; }
