@@ -1,9 +1,9 @@
-@import "tailwindcss";
-
 /* ==================================================
    0) FONT
 ================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;400;600;700&display=swap');
+
+@import "tailwindcss";
 
 /* ==================================================
    1) THEME VARIABLES
