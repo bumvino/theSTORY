@@ -15,6 +15,17 @@ const LOCALES = ['en-US', 'ko-KR', 'en'];
 
 // ---------- Helpers ----------
 async function getEntryWithFallback(id) {
+    if (!id) return { entry: null, locale: null };
+
+    // 1) Try default locale first (important after Next.js update)
+    try {
+        const e = await cfClient.getEntry(id);
+        if (e?.fields) return { entry: e, locale: 'default' };
+    } catch (_) {
+        // ignore
+    }
+
+    // 2) Try explicit locales
     for (const loc of LOCALES) {
         try {
             const e = await cfClient.getEntry(id, { locale: loc });
@@ -70,8 +81,9 @@ export async function generateStaticParams() {
 
 // ---------- SEO ----------
 export async function generateMetadata({ params }) {
+    const { id } = await Promise.resolve(params);
     try {
-        const { entry } = await getEntryWithFallback(params.id);
+        const { entry } = await getEntryWithFallback(id);
         const f = entry?.fields || {};
         const title = f.title || (f.weekNumber ? `주일예배 Week ${f.weekNumber}` : 'Bulletin');
         return {
@@ -86,7 +98,7 @@ export async function generateMetadata({ params }) {
 
 // ---------- Main component ----------
 export default async function BulletinDetail({ params }) {
-    const { id } = params;
+    const { id } = await Promise.resolve(params);
 
     const { entry, locale: resolvedLocale } = await getEntryWithFallback(id);
     if (!entry?.fields) return notFound();
@@ -181,13 +193,3 @@ export default async function BulletinDetail({ params }) {
         </section>
     );
 }
-
-/*
----------------------------------------------------------------------------
-If you later switch to slug:
-- Rename this file to: /app/bulletin/[slug]/page.js
-- Change generateStaticParams() to select 'fields.slug' and return { slug }
-- Fetch by slug via getEntries({ content_type:'bulletin', 'fields.slug': params.slug, limit:1 })
-- In your webhook: revalidatePath(`/bulletin/${slug}`)
----------------------------------------------------------------------------
-*/
