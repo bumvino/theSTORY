@@ -7,6 +7,13 @@ export default function Header() {
     const pathname = usePathname();
     const isActive = (href) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 
+    // Helper to determine if the ABOUT parent link should be active
+    const isAboutActive =
+        pathname.startsWith('/about') ||
+        pathname.startsWith('/pastor') ||
+        pathname.startsWith('/staff') ||
+        pathname.startsWith('/bulletin');
+
     return (
         <header className="site-header">
             <div className="header-container">
@@ -21,7 +28,7 @@ export default function Header() {
                     <div className="nav-item">
                         <a
                             href="/about"
-                            className={`nav-link ${pathname.startsWith('/about') || pathname.startsWith('/pastor') ? 'active' : ''}`}
+                            className={`nav-link ${isAboutActive ? 'active' : ''}`}
                             aria-haspopup="true"
                             aria-expanded="false"
                         >
@@ -30,6 +37,8 @@ export default function Header() {
                         <div className="dropdown-content">
                             <Link href="/about">About Us</Link>
                             <Link href="/pastor">Our Pastor</Link>
+                            {/* Added STAFF Link Below */}
+                            <Link href="/staff">Staff 섬기는 사람들</Link>
                             <Link href="/bulletin">Bulletin 주보</Link>
                         </div>
                     </div>

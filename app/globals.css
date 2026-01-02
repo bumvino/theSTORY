@@ -381,3 +381,120 @@ input[type="submit"]:hover { color: var(--brand); }
     color: var(--brand);
     font-weight: 700;
 }
+
+/* ==================================================
+   15) STAFF PAGE
+================================================== */
+.staff-grid {
+    max-width: 1200px; margin: 4rem auto; padding: 0 2rem;
+    display: grid; gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.staff-card {
+    text-align: center;
+}
+
+.staff-photo-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #f0f0f0;
+}
+
+/* The Black & White to Color Logic */
+.staff-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.staff-card:hover .staff-img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.staff-card:hover .staff-photo-wrapper {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+}
+
+.staff-info h3 {
+    margin: 0; font-size: 1.25rem; font-weight: 700;
+}
+
+.staff-info .en-name {
+    display: block; font-size: 1rem; color: var(--muted); margin-bottom: 0.5rem;
+}
+
+.staff-title-tag {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Indicates the photo is a link */
+.clickable-photo {
+    cursor: pointer;
+}
+
+/* Optional: add a slight extra glow or effect when hovering over a clickable photo */
+.staff-card:hover a .staff-img.clickable-photo {
+    outline: 3px solid var(--brand);
+    outline-offset: -3px;
+    border-radius: 12px;
+}
+
+/* Placeholder styling for missing photos */
+.staff-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fdfdfd;
+    color: var(--brand);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.placeholder-full-name {
+    font-size: 1.4rem; /* Slightly smaller to ensure "Songyin 'John' Paik" would fit if needed */
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    text-align: center;
+}
+
+.placeholder-line {
+    width: 30px;
+    height: 2px;
+    background-color: var(--brand);
+    margin: 15px 0;
+}
+
+.placeholder-brand {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+}
+
+.resume-details summary:hover {
+    background: var(--brand-hover);
+    transition: background 0.2s ease;
+}
