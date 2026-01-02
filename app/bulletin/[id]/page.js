@@ -17,7 +17,7 @@ const LOCALES = ['en-US', 'ko-KR', 'en'];
 async function getEntryWithFallback(id) {
     if (!id) return { entry: null, locale: null };
 
-    // 1) Try default locale first (important after Next.js update)
+    // 1) Try default locale first
     try {
         const e = await cfClient.getEntry(id);
         if (e?.fields) return { entry: e, locale: 'default' };
@@ -70,7 +70,6 @@ const rtOptions = {
 
 // ---------- Pre-generate static params for ISR ----------
 export async function generateStaticParams() {
-    // Don’t force a locale here; let Contentful use the default so we at least get IDs.
     const res = await cfClient.getEntries({
         content_type: 'bulletin',
         select: 'sys.id',
@@ -131,8 +130,24 @@ export default async function BulletinDetail({ params }) {
 
                 {divider}
 
-                {/* 말씀 / Sermon */}
+                {/* --- Section: Prayer & Preacher --- */}
                 <div style={{ fontSize: '1.1rem', fontWeight: 500, marginBottom: '1.5rem' }}>
+
+                    {/* Representative Prayer (Conditional) */}
+                    {(f.prayer || f.prayerEng) && (
+                        <>
+                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                                <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>대표기도</span>
+                                <span style={{ color: '#777' }}>{f.prayer || '—'}</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                                <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>Prayer</span>
+                                <span style={{ color: '#777' }}>{f.prayerEng || '—'}</span>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Preacher */}
                     <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.3rem' }}>
                         <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>말씀</span>
                         <span style={{ color: '#777' }}>{f.preacher || '—'}</span>
@@ -143,7 +158,7 @@ export default async function BulletinDetail({ params }) {
                     </div>
                 </div>
 
-                {/* 제목(중앙) + 본문(우측) */}
+                {/* --- Section: Sermon Title & Scripture --- */}
                 <div style={{ fontSize: '1.1rem', color: '#777' }}>
                     <p style={{ textAlign: 'center', margin: '0 0 0.5rem' }}>
                         “{f.sermonTitle || '—'}”
@@ -172,6 +187,29 @@ export default async function BulletinDetail({ params }) {
                         {f.scriptureReference || ''}
                     </p>
                 </div>
+
+                {/* --- Section: Offertory Music (헌금특송) - Individual Checks --- */}
+                {(f.offertoryMusic || f.offertoryMusicEng) && (
+                    <div style={{ fontSize: '1.1rem', fontWeight: 500, marginTop: '2rem', marginBottom: '1rem' }}>
+
+                        {/* Show Korean Line only if data exists */}
+                        {f.offertoryMusic && (
+                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                                <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>헌금특송</span>
+                                <span style={{ color: '#777' }}>{f.offertoryMusic}</span>
+                            </div>
+                        )}
+
+                        {/* Show English Line only if data exists */}
+                        {f.offertoryMusicEng && (
+                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4.5rem' }}>Offertory</span>
+                                <span style={{ color: '#777' }}>{f.offertoryMusicEng}</span>
+                            </div>
+                        )}
+
+                    </div>
+                )}
 
                 {divider}
 
