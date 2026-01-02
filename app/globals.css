@@ -498,3 +498,124 @@ input[type="submit"]:hover { color: var(--brand); }
     background: var(--brand-hover);
     transition: background 0.2s ease;
 }
+
+/* --- Mobile Menu Button --- */
+.mobile-menu-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .header-social.desktop-only {
+        display: none;
+    }
+
+    /* Transform main-nav into a mobile overlay */
+    .main-nav {
+        display: none; /* Default hidden */
+        position: fixed;
+        top: 60px; /* Adjust based on your header height */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: var(--bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        gap: 1rem;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+
+    .main-nav.mobile-open {
+        display: flex;
+    }
+
+    /* Make dropdowns visible by default in mobile OR clickable */
+    .nav-item {
+        width: 100%;
+    }
+
+    .dropdown-content {
+        display: flex; /* Always visible in mobile for easier clicking */
+        position: static;
+        box-shadow: none;
+        padding-left: 1.5rem;
+        border-left: 2px solid var(--brand);
+        margin-top: 0.5rem;
+    }
+
+    .main-nav a, .nav-item > a {
+        font-size: 1.2rem;
+        width: 100%;
+        display: block;
+    }
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header-social {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-social img {
+    width: 24px;
+    height: 24px;
+}
+
+.mobile-social-links {
+    display: none; /* Hide in desktop */
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.mobile-social-links img {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .mobile-social-links {
+        display: flex; /* Show icons at bottom of mobile menu */
+    }
+
+    .main-nav {
+        /* ... existing mobile styles ... */
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        padding: 2rem;
+    }
+
+    .main-nav.mobile-open {
+        display: flex;
+    }
+}
