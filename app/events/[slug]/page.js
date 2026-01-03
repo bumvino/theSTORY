@@ -15,7 +15,6 @@ import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 const LOCALES = ['en-US', 'ko-KR', 'en'];
 const SITE_TZ = 'America/New_York';
 
-// Helper: consistent Eastern time formatting
 const fmtDateTime = (iso, locale = 'ko-KR') =>
     iso
         ? new Intl.DateTimeFormat(locale, {
@@ -35,20 +34,17 @@ async function getEventWithFallback(slug) {
         try {
             const res = await cfClient.getEntries({
                 content_type: 'event',
-                'fields.slug': slug, // Matches the slug from the URL
+                'fields.slug': slug,
                 include: 2,
                 limit: 1,
                 locale: loc,
             });
             if (res.items?.length) return { entry: res.items[0], locale: loc };
-        } catch (_) {
-            // Try next locale if this one fails
-        }
+        } catch (_) {}
     }
     return { entry: null, locale: null };
 }
 
-// ISR: Pre-generate params (optional, can stay empty for dynamic fetching)
 export async function generateStaticParams() {
     return [];
 }
@@ -57,7 +53,7 @@ export async function generateStaticParams() {
 // SEO Metadata
 // ----------------------------
 export async function generateMetadata({ params }) {
-    const { slug } = await params; // Crucial: Await params in Next.js 14/15
+    const { slug } = await params;
     const { entry } = await getEventWithFallback(slug);
 
     const f = entry?.fields || {};
@@ -84,14 +80,7 @@ const rtOptions = {
     },
     renderNode: {
         [BLOCKS.HEADING_2]: (_n, ch) => (
-            <h2
-                style={{
-                    fontSize: '1.25rem',
-                    margin: '1.1rem 0 0.5rem',
-                    lineHeight: 1.3,
-                    color: '#333',
-                }}
-            >
+            <h2 style={{ fontSize: '1.25rem', margin: '1.1rem 0 0.5rem', lineHeight: 1.3, color: '#333' }}>
                 {ch}
             </h2>
         ),
@@ -103,9 +92,7 @@ const rtOptions = {
             <ol style={{ listStyle: 'decimal', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ol>
         ),
         [BLOCKS.LIST_ITEM]: (_n, ch) => <li style={{ margin: '0.25rem 0' }}>{ch}</li>,
-        [BLOCKS.HR]: () => (
-            <hr style={{ border: 'none', borderTop: '1px solid #e5e5e5', margin: '1rem 0' }} />
-        ),
+        [BLOCKS.HR]: () => <hr style={{ border: 'none', borderTop: '1px solid #e5e5e5', margin: '1rem 0' }} />,
     },
 };
 
@@ -113,17 +100,13 @@ const rtOptions = {
 // Main Component
 // ----------------------------
 export default async function EventDetail({ params }) {
-    // 1. Await the params before using the slug
     const { slug } = await params;
-
-    // 2. Fetch the specific event based on that unique slug
     const { entry, locale } = await getEventWithFallback(slug);
 
     if (!entry?.fields) return notFound();
 
     const f = entry.fields;
 
-    // Handle Poster Image URL
     const imgUrl = f.poster?.fields?.file?.url
         ? f.poster.fields.file.url.startsWith('http')
             ? f.poster.fields.file.url
@@ -136,10 +119,8 @@ export default async function EventDetail({ params }) {
 
     return (
         <section className="about-section" style={{ fontSize: '1rem', color: '#777' }}>
-            <div
-                className="content-container"
-                style={{ textAlign: 'left', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}
-            >
+            <div className="content-container" style={{ textAlign: 'left', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}>
+
                 {/* Poster Image */}
                 {imgUrl && (
                     <div style={{ margin: '1rem 0 1.25rem' }}>
@@ -156,10 +137,7 @@ export default async function EventDetail({ params }) {
                 )}
 
                 {/* Event Title */}
-                <h1
-                    className="about-title"
-                    style={{ fontSize: '1.5rem', color: '#28C3EA', fontWeight: 'bold', marginBottom: '1rem' }}
-                >
+                <h1 className="about-title" style={{ fontSize: '1.5rem', color: '#28C3EA', fontWeight: 'bold', marginBottom: '1rem' }}>
                     {f.title || 'Event'}
                 </h1>
 
@@ -187,19 +165,17 @@ export default async function EventDetail({ params }) {
 
                 {divider}
 
-                {/* Rich Text Body Content */}
-                {f.body ? (
+                {/* Rich Text Body Content - Now handles null safely without placeholder */}
+                {f.body && (
                     <div style={{ color: '#777', fontSize: '1.05rem', marginBottom: '2rem' }}>
                         {documentToReactComponents(f.body, rtOptions)}
                     </div>
-                ) : (
-                    <p style={{ fontStyle: 'italic', opacity: 0.5 }}>상세 내용이 없습니다.</p>
                 )}
 
                 {/* Map Embed Logic */}
                 {f.mapEmbedUrl && (
                     <>
-                        {divider}
+                        {f.body && divider}
                         <h3 style={{ color: '#28C3EA', fontWeight: 'bold', marginBottom: '1rem' }}>지도 Location</h3>
                         <div style={{ margin: '0.75rem 0 1.5rem' }}>
                             <iframe
@@ -222,7 +198,6 @@ export default async function EventDetail({ params }) {
                     </a>
                 </div>
 
-                {/* Debug Info for Developers */}
                 <small style={{ display: 'block', marginTop: 40, opacity: 0.4, textAlign: 'center' }}>
                     Rendered: {new Date().toLocaleTimeString()} • Locale: {locale}
                 </small>
