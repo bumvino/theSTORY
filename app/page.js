@@ -9,7 +9,7 @@ export default function HomePage() {
             <section className="features-section" id="features">
                 <h2 className="features-heading">Welcome to theSTORY</h2>
                 <div className="features-grid">
-                    <Link href="/bulletin" className="feature-card">
+                    <Link href="/bulletin/latest" className="feature-card">
                         <div className="feature-icon">📰</div>
                         <h3>주보</h3>
                         <p>매주 예배 순서를 확인하세요.</p>

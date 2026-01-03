@@ -33,7 +33,7 @@ export default function Header() {
                                 <Link href="/about" onClick={closeMenu}>About Us</Link>
                                 <Link href="/pastor" onClick={closeMenu}>Our Pastor</Link>
                                 <Link href="/staff" onClick={closeMenu}>Staff 섬기는 사람들</Link>
-                                <Link href="/bulletin" onClick={closeMenu}>Bulletin 주보</Link>
+                                <Link href="/bulletin/latest" onClick={closeMenu}>Bulletin 주보</Link>
                             </div>
                         </div>
 
