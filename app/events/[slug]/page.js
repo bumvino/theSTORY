@@ -10,7 +10,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
 // ----------------------------
-// Locale + Timezone constants
+// Constants & Helpers
 // ----------------------------
 const LOCALES = ['en-US', 'ko-KR', 'en'];
 const SITE_TZ = 'America/New_York';
@@ -24,12 +24,8 @@ const fmtDateTime = (iso, locale = 'ko-KR') =>
         }).format(new Date(iso))
         : '';
 
-// ----------------------------
-// Fetch with locale fallback
-// ----------------------------
 async function getEventWithFallback(slug) {
     if (!slug) return { entry: null, locale: null };
-
     for (const loc of LOCALES) {
         try {
             const res = await cfClient.getEntries({
@@ -45,56 +41,7 @@ async function getEventWithFallback(slug) {
     return { entry: null, locale: null };
 }
 
-export async function generateStaticParams() {
-    return [];
-}
-
-// ----------------------------
-// SEO Metadata
-// ----------------------------
-export async function generateMetadata({ params }) {
-    const { slug } = await params;
-    const { entry } = await getEventWithFallback(slug);
-
-    const f = entry?.fields || {};
-    const title = f.title || 'Event';
-
-    return {
-        title: `${title} | The STORY`,
-        description: f.excerpt || f.title || '',
-        openGraph: {
-            title: `${title} | The STORY`,
-            description: f.excerpt || f.title
-        },
-        twitter: { title: `${title} | The STORY` },
-    };
-}
-
-// ----------------------------
-// Rich Text render options
-// ----------------------------
-const rtOptions = {
-    renderMark: {
-        [MARKS.BOLD]: (text) => <strong style={{ fontWeight: 700 }}>{text}</strong>,
-        [MARKS.ITALIC]: (text) => <em style={{ fontStyle: 'italic' }}>{text}</em>,
-    },
-    renderNode: {
-        [BLOCKS.HEADING_2]: (_n, ch) => (
-            <h2 style={{ fontSize: '1.25rem', margin: '1.1rem 0 0.5rem', lineHeight: 1.3, color: '#333' }}>
-                {ch}
-            </h2>
-        ),
-        [BLOCKS.PARAGRAPH]: (_n, ch) => <p style={{ margin: '0.4rem 0', lineHeight: 1.6 }}>{ch}</p>,
-        [BLOCKS.UL_LIST]: (_n, ch) => (
-            <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ul>
-        ),
-        [BLOCKS.OL_LIST]: (_n, ch) => (
-            <ol style={{ listStyle: 'decimal', paddingLeft: '1.5rem', margin: '0.6rem 0' }}>{ch}</ol>
-        ),
-        [BLOCKS.LIST_ITEM]: (_n, ch) => <li style={{ margin: '0.25rem 0' }}>{ch}</li>,
-        [BLOCKS.HR]: () => <hr style={{ border: 'none', borderTop: '1px solid #e5e5e5', margin: '1rem 0' }} />,
-    },
-};
+export async function generateStaticParams() { return []; }
 
 // ----------------------------
 // Main Component
@@ -107,11 +54,10 @@ export default async function EventDetail({ params }) {
 
     const f = entry.fields;
 
-    const imgUrl = f.poster?.fields?.file?.url
-        ? f.poster.fields.file.url.startsWith('http')
-            ? f.poster.fields.file.url
-            : `https:${f.poster.fields.file.url}`
-        : null;
+    // Check if poster is an image or video
+    const asset = f.poster?.fields?.file;
+    const fileUrl = asset?.url ? (asset.url.startsWith('http') ? asset.url : `https:${asset.url}`) : null;
+    const isVideo = asset?.contentType?.includes('video');
 
     const divider = (
         <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '2px solid #ccc' }} />
@@ -121,18 +67,31 @@ export default async function EventDetail({ params }) {
         <section className="about-section" style={{ fontSize: '1rem', color: '#777' }}>
             <div className="content-container" style={{ textAlign: 'left', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}>
 
-                {/* Poster Image */}
-                {imgUrl && (
+                {/* Media Section: Handles Image OR MP4 Video */}
+                {fileUrl && (
                     <div style={{ margin: '1rem 0 1.25rem' }}>
-                        <Image
-                            src={imgUrl}
-                            alt={f.title || 'Event Poster'}
-                            width={1200}
-                            height={1600}
-                            className="w-full h-auto rounded-xl shadow"
-                            unoptimized
-                            priority
-                        />
+                        {isVideo ? (
+                            <video
+                                src={fileUrl}
+                                className="w-full h-auto rounded-xl shadow"
+                                controls
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                style={{ width: '100%', borderRadius: '12px' }}
+                            />
+                        ) : (
+                            <Image
+                                src={fileUrl}
+                                alt={f.title || 'Event Poster'}
+                                width={1200}
+                                height={1600}
+                                className="w-full h-auto rounded-xl shadow"
+                                unoptimized
+                                priority
+                            />
+                        )}
                     </div>
                 )}
 
@@ -141,7 +100,7 @@ export default async function EventDetail({ params }) {
                     {f.title || 'Event'}
                 </h1>
 
-                {/* Event Details: Date, Location, Address */}
+                {/* Event Details */}
                 <div style={{ fontSize: '1.05rem', fontWeight: 500, marginTop: '0.75rem', lineHeight: '1.8' }}>
                     {f.date && (
                         <p style={{ margin: 0 }}>
@@ -165,17 +124,17 @@ export default async function EventDetail({ params }) {
 
                 {divider}
 
-                {/* Rich Text Body Content - Now handles null safely without placeholder */}
+                {/* Rich Text Body */}
                 {f.body && (
                     <div style={{ color: '#777', fontSize: '1.05rem', marginBottom: '2rem' }}>
-                        {documentToReactComponents(f.body, rtOptions)}
+                        {documentToReactComponents(f.body)}
                     </div>
                 )}
 
-                {/* Map Embed Logic */}
+                {/* Map Embed */}
                 {f.mapEmbedUrl && (
                     <>
-                        {f.body && divider}
+                        {(f.body || isVideo) && divider}
                         <h3 style={{ color: '#28C3EA', fontWeight: 'bold', marginBottom: '1rem' }}>지도 Location</h3>
                         <div style={{ margin: '0.75rem 0 1.5rem' }}>
                             <iframe
@@ -184,7 +143,6 @@ export default async function EventDetail({ params }) {
                                 height="400"
                                 style={{ border: 0 }}
                                 loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
                                 className="rounded-xl shadow"
                             />
                         </div>
@@ -197,10 +155,6 @@ export default async function EventDetail({ params }) {
                         ← 목록으로 돌아가기 (Back to Events)
                     </a>
                 </div>
-
-                <small style={{ display: 'block', marginTop: 40, opacity: 0.4, textAlign: 'center' }}>
-                    Rendered: {new Date().toLocaleTimeString()} • Locale: {locale}
-                </small>
             </div>
         </section>
     );
