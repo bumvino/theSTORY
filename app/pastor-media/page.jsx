@@ -23,10 +23,6 @@ export default function MediaPastorPage() {
                     <h2 style={{ fontSize: '1.6rem', marginBottom: '0.5rem', fontWeight: '700' }}>
                         백성인 <span style={{ fontWeight: '400', color: 'var(--muted)', fontSize: '1.2rem' }}>| Songyin "John" Paik</span>
                     </h2>
-                    <p style={{ color: 'var(--brand)', fontWeight: '600', marginBottom: '1.5rem' }}>
-                        PCUSA(미국장로교) Greater Atlanta 노회 안수 목사 (2018)
-                    </p>
-
                     <p style={{ marginBottom: '1rem', lineHeight: '1.8' }}>
                         백성인 목사는 theSTORY Worshiping Community에서 미디어 사역과 심방 및 돌봄 사역을 담당하고 있습니다.
                         정치학, 국제학, 그리고 신학을 아우르는 학문적 배경과 병원 및 호스피스 현장에서의 풍부한 임상목회경험(CPE)을 바탕으로,
