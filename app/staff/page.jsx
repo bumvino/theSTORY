@@ -2,6 +2,7 @@ export default function StaffPage() {
     const staffMembers = [
         {
             nameKo: "최지선",
+            positionKo: "목사", // Added Korean position
             nameEn: "Emily Choi",
             title: "Founder / Lead Pastor",
             image: "/images/staff/emily-choi.png",
@@ -9,6 +10,7 @@ export default function StaffPage() {
         },
         {
             nameKo: "백성인",
+            positionKo: "목사", // Added Korean position
             nameEn: "Songyin 'John' Paik",
             title: "Pastor for Media / Pastoral Care Ministry",
             image: "/images/staff/john-paik.png",
@@ -16,15 +18,17 @@ export default function StaffPage() {
         },
         {
             nameKo: "허린",
+            positionKo: "간사", // Added Korean position
             nameEn: "Rin Her",
             title: "Sunday School Director",
-            image: null, // Set to null until you get the photo
+            image: null,
         },
         {
             nameKo: "김신애",
+            positionKo: "간사", // Added Korean position
             nameEn: "Shinae Kim",
             title: "Ministry Assistant",
-            image: null, // No photo
+            image: null,
             email: "admin@thestorywc.org"
         }
     ];
@@ -44,7 +48,6 @@ export default function StaffPage() {
 
                         <div className="staff-photo-wrapper">
                             {member.image ? (
-                                /* PHOTO EXISTS */
                                 member.link ? (
                                     <a href={member.link}>
                                         <img src={member.image} alt={member.nameEn} className="staff-img clickable-photo" />
@@ -53,7 +56,6 @@ export default function StaffPage() {
                                     <img src={member.image} alt={member.nameEn} className="staff-img" />
                                 )
                             ) : (
-                                /* PLACEHOLDER: Shows for both Rin Her and Shinae Kim */
                                 <div className="staff-placeholder">
                                     <p className="placeholder-full-name">{member.nameEn}</p>
                                     <div className="placeholder-line"></div>
@@ -63,7 +65,12 @@ export default function StaffPage() {
                         </div>
 
                         <div className="staff-info">
-                            <h3>{member.nameKo}</h3>
+                            {/* Updated Name + Position Heading */}
+                            <h3>
+                                {member.nameKo}
+                                <span className="ko-position">{member.positionKo}</span>
+                            </h3>
+
                             <span className="en-name">{member.nameEn}</span>
                             <div style={{ marginBottom: '1rem' }}>
                                 <span className="staff-title-tag">{member.title}</span>

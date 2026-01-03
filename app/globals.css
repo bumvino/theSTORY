@@ -619,3 +619,17 @@ input[type="submit"]:hover { color: var(--brand); }
         display: flex;
     }
 }
+
+/* Styling for the Korean title next to the name */
+.staff-info h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700; /* Name stays bold */
+}
+
+.ko-position {
+    font-size: 0.95rem;      /* Smaller than the name */
+    font-weight: 400;      /* Not bold */
+    color: var(--muted);   /* Optional: slightly lighter color */
+    margin-left: 0.3rem;   /* Space between name and title */
+}
