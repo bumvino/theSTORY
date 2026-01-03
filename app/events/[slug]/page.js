@@ -29,33 +29,47 @@ const fmtDateTime = (iso, locale = 'ko-KR') =>
 // Fetch with locale fallback
 // ----------------------------
 async function getEventWithFallback(slug) {
+    if (!slug) return { entry: null, locale: null };
+
     for (const loc of LOCALES) {
         try {
             const res = await cfClient.getEntries({
                 content_type: 'event',
-                'fields.slug': slug,
+                'fields.slug': slug, // Matches the slug from the URL
                 include: 2,
                 limit: 1,
                 locale: loc,
             });
             if (res.items?.length) return { entry: res.items[0], locale: loc };
-        } catch (_) {}
+        } catch (_) {
+            // Try next locale if this one fails
+        }
     }
     return { entry: null, locale: null };
 }
 
+// ISR: Pre-generate params (optional, can stay empty for dynamic fetching)
 export async function generateStaticParams() {
     return [];
 }
 
+// ----------------------------
+// SEO Metadata
+// ----------------------------
 export async function generateMetadata({ params }) {
-    const { entry } = await getEventWithFallback(params.slug);
+    const { slug } = await params; // Crucial: Await params in Next.js 14/15
+    const { entry } = await getEventWithFallback(slug);
+
     const f = entry?.fields || {};
     const title = f.title || 'Event';
+
     return {
         title: `${title} | The STORY`,
         description: f.excerpt || f.title || '',
-        openGraph: { title: `${title} | The STORY`, description: f.excerpt || f.title },
+        openGraph: {
+            title: `${title} | The STORY`,
+            description: f.excerpt || f.title
+        },
         twitter: { title: `${title} | The STORY` },
     };
 }
@@ -99,10 +113,17 @@ const rtOptions = {
 // Main Component
 // ----------------------------
 export default async function EventDetail({ params }) {
-    const { entry, locale } = await getEventWithFallback(params.slug);
+    // 1. Await the params before using the slug
+    const { slug } = await params;
+
+    // 2. Fetch the specific event based on that unique slug
+    const { entry, locale } = await getEventWithFallback(slug);
+
     if (!entry?.fields) return notFound();
 
     const f = entry.fields;
+
+    // Handle Poster Image URL
     const imgUrl = f.poster?.fields?.file?.url
         ? f.poster.fields.file.url.startsWith('http')
             ? f.poster.fields.file.url
@@ -119,7 +140,7 @@ export default async function EventDetail({ params }) {
                 className="content-container"
                 style={{ textAlign: 'left', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}
             >
-                {/* Poster */}
+                {/* Poster Image */}
                 {imgUrl && (
                     <div style={{ margin: '1rem 0 1.25rem' }}>
                         <Image
@@ -134,58 +155,57 @@ export default async function EventDetail({ params }) {
                     </div>
                 )}
 
-                {/* Title */}
+                {/* Event Title */}
                 <h1
                     className="about-title"
-                    style={{ fontSize: '1.3rem', color: '#28C3EA', fontWeight: 'bold' }}
+                    style={{ fontSize: '1.5rem', color: '#28C3EA', fontWeight: 'bold', marginBottom: '1rem' }}
                 >
                     {f.title || 'Event'}
                 </h1>
 
-                {/* Date, Location, Address */}
-                <p style={{ fontSize: '1.05rem', fontWeight: 500, marginTop: '0.75rem' }}>
+                {/* Event Details: Date, Location, Address */}
+                <div style={{ fontSize: '1.05rem', fontWeight: 500, marginTop: '0.75rem', lineHeight: '1.8' }}>
                     {f.date && (
-                        <>
-                            <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>일정</span>{' '}
+                        <p style={{ margin: 0 }}>
+                            <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4rem', display: 'inline-block' }}>일정</span>{' '}
                             <span style={{ color: '#777' }}>{fmtDateTime(f.date)}</span>
-                            <br />
-                        </>
+                        </p>
                     )}
                     {f.location && (
-                        <>
-                            <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>장소</span>{' '}
+                        <p style={{ margin: 0 }}>
+                            <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4rem', display: 'inline-block' }}>장소</span>{' '}
                             <span style={{ color: '#777' }}>{f.location}</span>
-                            <br />
-                        </>
+                        </p>
                     )}
                     {f.address && (
-                        <>
-                            <span style={{ color: '#28C3EA', fontWeight: 'bold' }}>주소</span>{' '}
+                        <p style={{ margin: 0 }}>
+                            <span style={{ color: '#28C3EA', fontWeight: 'bold', minWidth: '4rem', display: 'inline-block' }}>주소</span>{' '}
                             <span style={{ color: '#777' }}>{f.address}</span>
-                        </>
+                        </p>
                     )}
-                </p>
+                </div>
 
                 {divider}
 
-                {/* Rich Text Body */}
+                {/* Rich Text Body Content */}
                 {f.body ? (
-                    <div style={{ color: '#777', fontSize: '1rem' }}>
+                    <div style={{ color: '#777', fontSize: '1.05rem', marginBottom: '2rem' }}>
                         {documentToReactComponents(f.body, rtOptions)}
                     </div>
                 ) : (
-                    <em> </em>
+                    <p style={{ fontStyle: 'italic', opacity: 0.5 }}>상세 내용이 없습니다.</p>
                 )}
 
-                {/* Map Embed */}
+                {/* Map Embed Logic */}
                 {f.mapEmbedUrl && (
                     <>
                         {divider}
+                        <h3 style={{ color: '#28C3EA', fontWeight: 'bold', marginBottom: '1rem' }}>지도 Location</h3>
                         <div style={{ margin: '0.75rem 0 1.5rem' }}>
                             <iframe
                                 src={f.mapEmbedUrl}
                                 width="100%"
-                                height="450"
+                                height="400"
                                 style={{ border: 0 }}
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
@@ -195,9 +215,16 @@ export default async function EventDetail({ params }) {
                     </>
                 )}
 
-                {/* Debug info */}
-                <small style={{ display: 'block', marginTop: 24, opacity: 0.6 }}>
-                    Rendered at: {new Date().toISOString()} {locale && `• locale: ${locale}`}
+                {/* Back Link */}
+                <div style={{ marginTop: '3rem', textAlign: 'center', borderTop: '1px solid #eee', paddingTop: '2rem' }}>
+                    <a href="/events" style={{ color: '#28C3EA', fontWeight: 'bold', textDecoration: 'none' }}>
+                        ← 목록으로 돌아가기 (Back to Events)
+                    </a>
+                </div>
+
+                {/* Debug Info for Developers */}
+                <small style={{ display: 'block', marginTop: 40, opacity: 0.4, textAlign: 'center' }}>
+                    Rendered: {new Date().toLocaleTimeString()} • Locale: {locale}
                 </small>
             </div>
         </section>

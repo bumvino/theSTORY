@@ -1,4 +1,4 @@
-/// /app/events/page.js
+//app/events/page.js
 export const revalidate = 60;
 
 import { cfClient } from '@/lib/contentful';
