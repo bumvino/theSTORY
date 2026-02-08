@@ -20,15 +20,3 @@ export default function ConnectPage() {
         </section>
     );
 }
-
-
-//import { Resend } from 'resend';
-//
-// const resend = new Resend('re_PC9WQmNo_2cd58VDEYQuJvN3uvNSc7HE6');
-//
-// resend.emails.send({
-//   from: 'onboarding@resend.dev',
-//   to: 'bum.kim@thestorywc.org',
-//   subject: 'Hello World',
-//   html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-// });
