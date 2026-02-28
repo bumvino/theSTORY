@@ -17,13 +17,6 @@ export default function StaffPage() {
             link: "/pastor-media"
         },
         {
-            nameKo: "허린",
-            positionKo: "간사", // Added Korean position
-            nameEn: "Rin Her",
-            title: "Sunday School Director",
-            image: null,
-        },
-        {
             nameKo: "김신애",
             positionKo: "간사", // Added Korean position
             nameEn: "Shinae Kim",
