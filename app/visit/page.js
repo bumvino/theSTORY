@@ -4,7 +4,8 @@ export default function VisitPage() {
             <div className="content-container">
                 <h1 className="about-title">Visit</h1>
                 <p>주일예배: 그레이스홀</p>
-                <p>3294 Peachtree Industrial Blvd #1001, Duluth, GA 30096<br/> </p>
+                <p>3294 Peachtree Industrial Blvd #1001, Duluth, GA 30096</p>
+                <br/>
                 <p>주중예배: 드림채플</p>
                 <p>3294 Peachtree Industrial Blvd #1000B, Duluth, GA 30096</p>
 
