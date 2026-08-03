@@ -26,7 +26,6 @@ export default function GivingPage() {
                 <div
                     style={{
                         marginBottom: "2rem",
-                        fontStyle: "italic",
                         fontSize: "1.2rem",
                         lineHeight: 1.7,
                         textAlign: "center",
