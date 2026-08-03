@@ -53,7 +53,7 @@ export default function HomePage() {
                     <div className="worship-card">
                         <h3>주중 예배</h3>
                         <ul>
-                            <li>기도모임 | 금요일 오후 7:30</li>
+                            <li>Prayer Night | 금요일 오후 7:30</li>
                             <li>찬양예배 | 매달 첫 목요일 오후 7:30</li>
                         </ul>
                     </div>
