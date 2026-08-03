@@ -18,7 +18,7 @@ export default function WomenMinistryPage() {
                         Every Wednesday
                     </h3>
                     <p style={{ margin: '0.25rem 0 0.25rem' }}>
-                        매주 수요일 <strong>오전 10시 30분</strong>
+                        매주 목요일 <strong>오전 10시 30분</strong>
                     </p>
                     <p style={{ margin: 0 }}>
                         ☕ 커피 한잔과 함께 말씀을 나누고 삶을 나누는 <strong>여성들만의 따뜻한 만남</strong>
