@@ -45,7 +45,7 @@ export default function Footer() {
                 <div className="footer-col">
                     <h4>Contact</h4>
                     <address>
-                        3294 Peachtree Industrial Blvd #1000B<br />
+                        3294 Peachtree Industrial Blvd #10001<br />
                         Duluth, GA 30096<br />
                         <a href="mailto:admin@thestorywc.org">admin@thestorywc.org</a><br />
                     </address>

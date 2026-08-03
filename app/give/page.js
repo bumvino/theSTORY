@@ -33,9 +33,7 @@ export default function GivingPage() {
                         color: "#1e2a38",
                     }}
                 >
-                    “각자 자기가 마음에 결정한 대로 내고, 내키지 않는 마음이나 억지로는 내지 마십시오.
-                    <br />
-                    하나님께서는 흔쾌히 내는 사람을 사랑하십니다.”
+                    “모든 것이 주께로부터 나왔습니다. 우리는 주께서 주신 것을 주께 돌려 드린 것뿐입니다."
                     <br />
                     <span
                         style={{
@@ -46,7 +44,7 @@ export default function GivingPage() {
                             fontSize: "1.1rem",
                         }}
                     >
-            (쉬운성경, 고린도후서 9:7)
+            (쉬운성경, 역대상 29:14)
           </span>
                 </div>
 
