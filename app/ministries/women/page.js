@@ -15,7 +15,7 @@ export default function WomenMinistryPage() {
                 {/* Schedule / Hero */}
                 <div className="worship-card" style={{ marginBottom: '1.25rem' }}>
                     <h3 style={{ color: '#28C3EA', marginTop: 0 }}>
-                        Every Wednesday
+                        Every Thursday
                     </h3>
                     <p style={{ margin: '0.25rem 0 0.25rem' }}>
                         매주 목요일 <strong>오전 10시 30분</strong>
