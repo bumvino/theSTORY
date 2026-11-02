@@ -45,14 +45,14 @@ export default function Footer() {
                 <div className="footer-col">
                     <h4>Contact</h4>
                     <address>
-                        3294 Peachtree Industrial Blvd #1001<br />
-                        Duluth, GA 30096<br />
+                        10950 Bell Rd.<br />
+                        Johns Creek, GA 30097<br />
                         <a href="mailto:admin@thestorywc.org">admin@thestorywc.org</a><br />
                     </address>
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>© 2025 theStory Worshiping Community. All rights reserved.</p>
+                <p>© 2026 theStory Worshiping Community. All rights reserved.</p>
             </div>
         </footer>
     );
