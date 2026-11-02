@@ -47,7 +47,7 @@ export default function HomePage() {
                     <div className="worship-card">
                         <h3>주일 예배</h3>
                         <ul>
-                            <li>주일 오전 11:00</li>
+                            <li>주일 오전 11:30</li>
                         </ul>
                     </div>
                     <div className="worship-card">
